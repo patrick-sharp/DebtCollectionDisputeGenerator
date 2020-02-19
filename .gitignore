@@ -105,3 +105,6 @@ dist
 
 # Local Netlify folder
 .netlify
+
+# React build artifacts
+build/
