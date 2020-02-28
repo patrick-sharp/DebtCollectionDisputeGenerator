@@ -108,3 +108,6 @@ dist
 
 # React build artifacts
 build/
+
+# Mac directory info
+.DS_Store
