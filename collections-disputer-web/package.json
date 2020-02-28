@@ -25,8 +25,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:ci": "react-scripts test --watchAll=false",
     "eject": "react-scripts eject",
-    "lint": "npx eslint --fix src",
+    "lint": "npx eslint --fix 'src/**/*.ts*'",
     "format": "npx prettier --write **/*.ts*"
   },
   "eslintConfig": {
@@ -49,7 +50,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "npx npm-run-all -s format lint test"
+      "pre-push": "npx npm-run-all -s format lint test:ci"
     }
   }
 }
