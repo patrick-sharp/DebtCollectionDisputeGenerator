@@ -5,7 +5,7 @@ import DisputeGenerator from "./DisputeGenerator/DisputeGenerator";
 function App() {
   return (
     <div className="App">
-      <DisputeGenerator></DisputeGenerator>
+      <DisputeGenerator/>
     </div>
   );
 }
