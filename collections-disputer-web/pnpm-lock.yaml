@@ -11,6 +11,7 @@ dependencies:
   antd: 3.26.11_react-dom@16.12.0+react@16.12.0
   formik: 2.1.4_react@16.12.0
   lodash: 4.17.15
+  moment: 2.24.0
   node-sass: 4.13.1
   pdfmake: 0.1.64
   react: 16.12.0
@@ -13097,6 +13098,7 @@ specifiers:
   formik: ^2.1.4
   husky: ^4.2.3
   lodash: ^4.17.15
+  moment: ^2.24.0
   node-sass: ^4.13.1
   pdfmake: ^0.1.64
   react: ^16.12.0

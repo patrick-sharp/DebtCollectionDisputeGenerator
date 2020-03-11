@@ -4,7 +4,7 @@ import Step from "./Step";
 export default function StepForm({
   children
 }: {
-  children: string | React.ReactChildren;
+  children: React.ReactNode;
 }) {
   return (
     <div className="step-form">

@@ -11,7 +11,7 @@ export default class DisputeGenerator extends React.Component {
     currentDisputeIndex: 0
   };
   render() {
-    const contextValue = this.state;
+    const contextValue = {...this.state, setState: this.setState.bind(this)}
     return (
       <div id="DisputeGenerator">
         <DisputeGeneratorContext.Provider value={contextValue}>
