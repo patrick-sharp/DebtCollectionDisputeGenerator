@@ -7,11 +7,16 @@
     "build": "react-static build",
     "bundle": "react-static bundle",
     "export": "react-static export",
-    "serve": "serve dist -p 3000 -s"
+    "serve": "serve dist -p 3000 -s",
+    "test": "jest",
+    "test:ci": "jest --watchAll=false",
+    "lint": "npx eslint --fix 'src/**/*.ts*'",
+    "format": "npx prettier --write **/*.ts*"
   },
   "dependencies": {
+    "@react-pdf/renderer": "^1.6.8",
+    "pdfmake": "^0.1.64",
     "@reach/router": "^1.2.1",
-    "@types/lodash": "^4.14.151",
     "axios": "^0.19.0",
     "formik": "^2.1.4",
     "lodash": "^4.17.15",
@@ -28,6 +33,7 @@
     "react-stepzilla": "^6.0.2"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.151",
     "@types/node": "^12.7.2",
     "@types/reach__router": "^1.2",
     "@types/react": "^16.9.1",
@@ -36,6 +42,12 @@
     "@types/webpack-env": "^1.14.0",
     "react-hot-loader": "^4.12.11",
     "serve": "^11.1.0",
-    "typescript": "^3.5.3"
+    "typescript": "^3.5.3",
+    "husky": "^4.2.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "npx npm-run-all -s format lint test:ci"
+    }
   }
 }
