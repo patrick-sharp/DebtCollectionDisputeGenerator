@@ -1,16 +1,18 @@
 import _ from "lodash";
 import React from "react";
 import StepForm from "../StepForm";
-import DisputeGeneratorContext from "../../disputeGeneratorContext";
-import { Claimee, Spouse } from "../../types/types";
-import { Formik, Form } from "formik";
+import DisputeGeneratorContext from "../../../disputeGeneratorContext";
+import { Formik } from "formik";
 import moment from "moment";
+import { Dispute } from 'types/types';
+import { Claimee } from 'types/types';
+import { Spouse } from 'types/types';
 
 export default function BiographyForm() {
   const { disputes, currentDisputeIndex } = React.useContext(
     DisputeGeneratorContext
   );
-  const dispute = disputes[currentDisputeIndex] ?? {};
+  const dispute = disputes[currentDisputeIndex] ?? ({} as Dispute);
   const { hasSpouse } = dispute;
   return (
     <div id="BiographyForm">
@@ -39,24 +41,24 @@ function ClaimeeBiography() {
       city: "",
       state: "",
       zip: 0,
-      country: "USA"
+      country: "USA",
     },
     name: {
       first: "",
       middle: "",
       maidenOrFormer: "",
       last: "",
-      juniorOrSenior: false
+      juniorOrSenior: false,
     },
     contactInfo: {
       primaryPhone: "",
       alternatePhone: "",
-      email: ""
+      email: "",
     },
     personalInfo: {
       birthdate: moment().format("YYYY-mm-dd"),
-      ssn: 0
-    }
+      ssn: 0,
+    },
   };
   return (
     <Formik initialValues={initialValues} onSubmit={handleUpdate}></Formik>
@@ -78,12 +80,12 @@ function SpouseBiography() {
       middle: "",
       maidenOrFormer: "",
       last: "",
-      juniorOrSenior: false
+      juniorOrSenior: false,
     },
     personalInfo: {
       birthdate: moment().format("YYYY-mm-dd"),
-      ssn: 0
-    }
+      ssn: 0,
+    },
   };
   return (
     <Formik initialValues={initialValues} onSubmit={handleUpdate}></Formik>
