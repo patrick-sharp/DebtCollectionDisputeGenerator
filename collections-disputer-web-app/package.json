@@ -14,15 +14,20 @@
     "format": "npx prettier --write **/*.ts*"
   },
   "dependencies": {
-    "@react-pdf/renderer": "^1.6.8",
-    "pdfmake": "^0.1.64",
+    "@blueprintjs/core": "^3.27.0",
+    "@blueprintjs/icons": "^3.17.0",
     "@reach/router": "^1.2.1",
+    "@react-pdf/renderer": "^1.6.8",
+    "@types/react-albus": "^2.0.5",
     "axios": "^0.19.0",
+    "classnames": "^2.2.6",
     "formik": "^2.1.4",
     "lodash": "^4.17.15",
     "moment": "^2.25.3",
+    "pdfmake": "^0.1.64",
     "promise": "^8.1.0",
     "react": "^16.9.0",
+    "react-albus": "^2.0.0",
     "react-dom": "^16.9.0",
     "react-static": "^7.2.0",
     "react-static-plugin-reach-router": "^7.2.0",
@@ -33,6 +38,7 @@
     "react-stepzilla": "^6.0.2"
   },
   "devDependencies": {
+    "@types/classnames": "^2.2.10",
     "@types/lodash": "^4.14.151",
     "@types/node": "^12.7.2",
     "@types/reach__router": "^1.2",
@@ -40,10 +46,10 @@
     "@types/react-dom": "^16.8.5",
     "@types/react-hot-loader": "^4.1.0",
     "@types/webpack-env": "^1.14.0",
+    "husky": "^4.2.3",
     "react-hot-loader": "^4.12.11",
     "serve": "^11.1.0",
-    "typescript": "^3.5.3",
-    "husky": "^4.2.3"
+    "typescript": "^3.5.3"
   },
   "husky": {
     "hooks": {

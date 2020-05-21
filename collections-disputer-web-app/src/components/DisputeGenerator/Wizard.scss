@@ -1,0 +1,131 @@
+@import "./../../mixins.scss";
+
+#Wizard {
+  //background-color: #ececec;
+  font-size: 12px;
+  display: flex;
+  text-align: left;
+  height: 100%;
+
+  * {
+    font-family: Poppins;
+  }
+
+  .header {
+    margin-bottom: 50px;
+  }
+
+  .sidebar {
+    background-color: var(--lightgray);
+    justify-content: flex-start;
+    height: 100%;
+    border-right: var(--thin-gray-border);
+    // padding: 25vh 0;
+    box-sizing: border-box;
+    padding-bottom: 25vh;
+  }
+
+  .sidebar.right-bar {
+    width: fit-content;
+  }
+
+  .step {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    flex-grow: 1;
+
+    .content {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: stretch;
+      max-width: 800px;
+      width: 100%;
+      margin: auto;
+      margin-left: 70px;
+      background-color: white;
+    }
+
+    .buttons {
+      margin: 0;
+      display: flex;
+      width: 100%;
+      box-sizing: border-box;
+      justify-content: flex-end;
+      border-top: var(--thin-gray-border);
+      padding-right: calc((100% - 800px) / 1);
+      padding-left: 70px;
+
+      .button-button {
+        width: fit-content;
+        flex-grow: unset;
+        font-size: 1em;
+        font-weight: bold !important;
+      }
+
+      .button-button.disabled {
+      }
+    }
+  }
+
+  h1 {
+    text-align: left;
+    padding: 20px;
+    padding-left: 0;
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
+
+  p {
+    margin-bottom: 30px;
+  }
+
+  form {
+    //padding: 0 0px;
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+
+    .text-input {
+      .label {
+        margin-top: 20px;
+        margin-bottom: 5px;
+      }
+
+      input {
+        border-bottom: 1px solid lightgray;
+        transition: border-color 0.5s;
+
+        &:focus,
+        &:active {
+          border-color: black;
+          outline: none;
+        }
+      }
+    }
+  }
+
+  .row {
+    @include row(24px);
+
+    &.full-width {
+      @include row(24px, true);
+    }
+  }
+
+  .wizard-footer {
+    margin-top: 50px;
+    //margin-bottom: 20px;
+    padding: 20px;
+
+    .button-button {
+      margin-right: 20px;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+}

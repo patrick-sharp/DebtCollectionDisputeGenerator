@@ -4,9 +4,9 @@ import StepForm from "../StepForm";
 import DisputeGeneratorContext from "../../../disputeGeneratorContext";
 import { Formik } from "formik";
 import moment from "moment";
-import { Dispute } from 'types/types';
-import { Claimee } from 'types/types';
-import { Spouse } from 'types/types';
+import { Dispute } from "types/types";
+import { Claimee } from "types/types";
+import { Spouse } from "types/types";
 
 export default function BiographyForm() {
   const { disputes, currentDisputeIndex } = React.useContext(

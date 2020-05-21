@@ -17,10 +17,10 @@
     "noEmit": true,
     "baseUrl": ".",
     "paths": {
-      "components/*": ["src/components/*"],
-      "containers/*": ["src/containers/*"],
-      "utils/*": ["src/utils/*"],
-      "types/*": ["src/types/*"]
+      "@components/*": ["src/components/*"],
+      "@containers/*": ["src/containers/*"],
+      "@utils/*": ["src/utils/*"],
+      "@types/*": ["src/types/*"]
     },
     "lib": ["dom", "es2015", "es2016"]
   },
