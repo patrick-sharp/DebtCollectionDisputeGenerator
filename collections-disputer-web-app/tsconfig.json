@@ -20,7 +20,7 @@
       "@components/*": ["src/components/*"],
       "@containers/*": ["src/containers/*"],
       "@utils/*": ["src/utils/*"],
-      "@types/*": ["src/types/*"]
+      "@typeDefs/*": ["src/types/*"]
     },
     "lib": ["dom", "es2015", "es2016"]
   },

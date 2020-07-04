@@ -1,4 +1,4 @@
-.logo {
+/* .logo {
   box-sizing: border-box;
   padding: 10px;
   padding-bottom: 100%;
@@ -55,15 +55,15 @@
   font-weight: bold;
 }
 .breadcrumbs .breadcrumb-step.active.connector {
-  background-color: var(--blue);
+  background-color: var(--blue, blue);
 }
 .breadcrumbs .breadcrumb-step.active.number {
   background-color: white;
-  border: 3px solid var(--blue);
+  border: 3px solid var(--blue, blue);
 }
 .breadcrumbs .breadcrumb-step.active.number span {
-  background-color: var(--blue);
+  background-color: var(--blue, blue);
   font-size: 12px;
   box-sizing: border-box;
   color: white;
-}
+} */

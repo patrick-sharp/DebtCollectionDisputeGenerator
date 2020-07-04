@@ -29,6 +29,7 @@ export default {
   plugins: [
     'react-static-plugin-typescript',
     'react-static-plugin-sass',
+    'react-static-plugin-css-modules',
     [
       require.resolve('react-static-plugin-source-filesystem'),
       {
