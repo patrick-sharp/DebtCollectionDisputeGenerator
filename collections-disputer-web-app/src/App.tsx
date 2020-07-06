@@ -3,6 +3,7 @@ import { Link, Router } from "@reach/router";
 import cx from "classnames";
 import React from "react";
 import { addPrefetchExcludes, Root, Routes } from "react-static";
+// import "@hookstate/devtools";
 import "./app.css";
 
 // Any routes that start with 'dynamic' will be treated as non-static routes

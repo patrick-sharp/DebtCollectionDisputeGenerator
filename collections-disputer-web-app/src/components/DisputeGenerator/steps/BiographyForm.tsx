@@ -1,59 +1,86 @@
 import {
-  Button,
   Divider,
   FormControl,
   FormLabel,
+  Skeleton,
   Stack,
   Switch,
 } from "@chakra-ui/core";
 import AutoSave from "@components/FormikAutosave";
+import { self, useState } from "@hookstate/core";
 import { IClaimee, IDispute, ISpouse } from "@typeDefs/types";
 import { Form, Formik } from "formik";
 import _ from "lodash";
 import moment from "moment";
 import React, { ChangeEvent } from "react";
+import { Step } from "react-albus";
 import { BioDataGroup, inputGroupMetaData } from "../components/StepForm";
-import DisputeGeneratorContext from "../disputeGeneratorContext";
-import { WizardContext } from "../WizardContext";
+// import DisputeGeneratorContext from "../disputeGeneratorContext";
+import { ClaimeeSchema } from "./../../../types/schemas";
+import StepButtons from "./../components/StepButtons";
+import { DisputeGlobalState } from "./../disputeGeneratorState";
 
 export default function BiographyForm() {
-  const {
-    wizard: { next },
-  } = React.useContext(WizardContext);
-  const { disputes, currentDisputeIndex } = React.useContext(
-    DisputeGeneratorContext
-  );
-  const dispute = disputes[currentDisputeIndex] ?? ({} as IDispute);
-  const { hasSpouse } = dispute;
+  // const { disputes, currentDisputeIndex } = React.useContext(
+  // DisputeGeneratorContext
+  // );
+
+  const { disputes, loading, currentDisputeIndex } = useState(
+    DisputeGlobalState
+  )[self].get();
+
+  if (!disputes[self].get() && !loading) {
+    disputes[self].set([]);
+  }
+
+  const dispute = disputes[currentDisputeIndex.value] ?? ({} as IDispute);
+
   return (
-    <div id="BiographyForm">
+    <Step id="BiographyForm">
       <Stack spacing={10}>
-        <ClaimeeBiography />
-        <SpouseSwitch />
-        {hasSpouse ? (
-          <Stack spacing={5}>
-            <Divider />
-            <SpouseBiography /> <Divider />
-          </Stack>
+        {_.isNil(dispute) ? (
+          <Skeleton />
+        ) : (
+          <>
+            <ClaimeeBiography />
+            <SpouseSwitch />
+          </>
+        )}
+        {!_.isNil(dispute) ? (
+          dispute?.hasSpouse ? (
+            <Stack spacing={5}>
+              <Divider />
+              <SpouseBiography /> <Divider />
+            </Stack>
+          ) : (
+            ""
+          )
         ) : (
           ""
         )}
-        <Button leftIcon={"arrow-forward"} onClick={next}>
-          Next
-        </Button>
+        <StepButtons
+          canNext={
+            _.isNil(dispute)
+              ? false
+              : ClaimeeSchema.isValidSync(dispute?.claimee)
+          }
+        />
       </Stack>
-    </div>
+    </Step>
   );
 }
 
 function ClaimeeBiography() {
-  const { setState, ...state } = React.useContext(DisputeGeneratorContext);
-  function handleUpdate(values: Omit<IClaimee, "spouse">) {
-    const disputes = _.cloneDeep(state.disputes);
-    const dispute = disputes[state.currentDisputeIndex];
-    dispute.claimee = values as IClaimee;
+  // const { setState, ...state } = React.useContext(DisputeGeneratorContext);
 
-    setState({ disputes });
+  // const state = useState()[self].value;
+
+  const index = useState(DisputeGlobalState.currentDisputeIndex).value;
+
+  const claimee = useState(DisputeGlobalState.disputes[index].claimee);
+
+  function handleUpdate(values: Omit<IClaimee, "spouse">) {
+    claimee[self].merge(values);
   }
   const initialValues: Omit<IClaimee, "spouse"> = {
     name: {
@@ -78,15 +105,12 @@ function ClaimeeBiography() {
       email: "",
     },
     personalInfo: {
-      birthdate: moment().format("YYYY-mm-dd"),
+      birthdate: moment().toDate(),
       ssn: 0,
     },
   };
 
-  _.merge(
-    initialValues,
-    _.omit(state.disputes[state.currentDisputeIndex].claimee, "spouse")
-  );
+  _.merge(initialValues, _.omit(claimee[self].value, "spouse"));
   return (
     <Formik initialValues={initialValues} onSubmit={handleUpdate}>
       <Form>
@@ -113,13 +137,12 @@ function ClaimeeBiography() {
 }
 
 function SpouseBiography() {
-  const { setState, ...state } = React.useContext(DisputeGeneratorContext);
-  function handleUpdate(values: ISpouse) {
-    const disputes = _.cloneDeep(state.disputes);
-    const dispute = disputes[state.currentDisputeIndex];
-    dispute.claimee = values as IClaimee;
+  const current = useState(DisputeGlobalState.currentDisputeIndex).value;
 
-    setState({ disputes });
+  const spouse = useState(DisputeGlobalState.disputes[current].claimee.spouse);
+
+  function handleUpdate(values: ISpouse) {
+    spouse[self].merge(values);
   }
   const initialValues: ISpouse = {
     name: {
@@ -130,10 +153,13 @@ function SpouseBiography() {
       juniorOrSenior: "",
     },
     personalInfo: {
-      birthdate: moment().format("YYYY-mm-dd"),
+      birthdate: moment().toDate(),
       ssn: 0,
     },
   };
+
+  _.merge(initialValues, _.merge(initialValues, spouse[self].value));
+
   return (
     <Formik initialValues={initialValues} onSubmit={handleUpdate}>
       <Form>
@@ -159,22 +185,21 @@ function SpouseBiography() {
   );
 }
 
-const SpouseSwitch = () => {
-  const { disputes, currentDisputeIndex, setCurrentState } = React.useContext(
-    DisputeGeneratorContext
+const SpouseSwitch = ({ ...rest }) => {
+  const hasSpouse = useState(
+    DisputeGlobalState.disputes[DisputeGlobalState.currentDisputeIndex.value]
+      .hasSpouse
   );
-  const dispute = disputes[currentDisputeIndex] ?? ({} as IDispute);
-  const { hasSpouse } = dispute;
 
   function setSpouse(e: ChangeEvent<HTMLInputElement>) {
     const checked = e.target.checked;
-    setCurrentState({ hasSpouse: checked });
+    hasSpouse[self].set(!!checked);
   }
 
   return (
-    <FormControl>
+    <FormControl {...rest}>
       <FormLabel htmlFor="has-spouse">I have a spouse</FormLabel>
-      <Switch id="has-spouse" value={hasSpouse} onChange={setSpouse} />
+      <Switch id="has-spouse" value={hasSpouse.value} onChange={setSpouse} />
     </FormControl>
   );
 };

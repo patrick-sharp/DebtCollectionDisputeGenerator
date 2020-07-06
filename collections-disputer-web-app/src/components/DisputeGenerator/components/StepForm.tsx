@@ -1,6 +1,4 @@
-import * as yup from "yup";
 import {
-  Text,
   Box,
   Collapse,
   Flex,
@@ -11,13 +9,14 @@ import {
   Input,
   PseudoBox,
   Stack,
+  Text,
   useDisclosure,
 } from "@chakra-ui/core";
 import { IClaimee, ISpouse } from "@typeDefs/types";
 import { Field, FieldProps, useFormikContext } from "formik";
 import _ from "lodash";
 import React from "react";
-import Step from "./Step";
+import * as yup from "yup";
 
 export default function StepForm({
   children,
@@ -29,7 +28,8 @@ export default function StepForm({
 }) {
   return (
     <Box {...rest} className="step-form">
-      <Step {...stepProps}>{children}</Step>
+      {children}
+      {/* <Step {...stepProps}>{children}</Step> */}
     </Box>
   );
 }
@@ -85,9 +85,9 @@ export const InputRow = ({
 };
 
 export const BioDataGroup = ({
-  name,
-  category,
-  isOpen: defaultIsOpen = false,
+  name: categoryName,
+  category: categoryChildrenKeys,
+  isOpen: defaultIsOpen = true,
   parentPath = "",
 }: {
   name: keyof typeof inputGroupMetaData;
@@ -95,17 +95,23 @@ export const BioDataGroup = ({
   isOpen: boolean;
   parentPath: string;
 }) => {
-  const { isOpen, onToggle } = useDisclosure(defaultIsOpen);
+  const { isOpen, onToggle } = useDisclosure(defaultIsOpen || true);
 
-  const { errors = {}, values = {} } = useFormikContext<
+  const { errors = {}, values = {}, touched } = useFormikContext<
     Omit<IClaimee, "spouse"> | ISpouse
   >();
 
+  // TODO: force open if child is focused
+
   // TODO: correct done / error for form groups
-  const error = !_.isEmpty((errors as any)[category]);
+  const touchedAtAll = !_.isEmpty((touched as any)[categoryName]);
+  const error = !_.isEmpty((errors as any)[categoryName]);
   const done =
+    touchedAtAll &&
     !error &&
-    Object.values((values as any)?.[category] ?? {}).every(_.negate(_.isNil));
+    Object.values((values as any)?.[categoryName] ?? {}).every(
+      _.negate(_.isNil)
+    );
   return (
     <Box borderWidth={"1px"} borderColor={1}>
       <PseudoBox
@@ -119,7 +125,8 @@ export const BioDataGroup = ({
       >
         {/* <Heading> */}
         <Text w={"100%"} textAlign={"left"}>
-          {inputGroupMetaData[name]?.label ?? (isOpen ? "Hide" : "Show")}
+          {inputGroupMetaData[categoryName]?.label ??
+            (isOpen ? "Hide" : "Show")}
         </Text>
         {done ? (
           <Icon name={"check"} />
@@ -131,15 +138,17 @@ export const BioDataGroup = ({
         {/* </Heading> */}
       </PseudoBox>
       <Collapse isOpen={isOpen} p={5}>
-        <Stack key={name} spacing={5}>
-          {Object.keys(category).map((field: keyof typeof inputMetaData) => (
-            <InputRow
-              key={field}
-              field={field}
-              category={name}
-              parentPath={parentPath}
-            />
-          ))}
+        <Stack key={categoryName} spacing={5}>
+          {Object.keys(categoryChildrenKeys).map(
+            (field: keyof typeof inputMetaData) => (
+              <InputRow
+                key={field}
+                field={field}
+                category={categoryName}
+                parentPath={parentPath}
+              />
+            )
+          )}
         </Stack>
       </Collapse>
     </Box>
@@ -160,7 +169,7 @@ export const inputGroupMetaData = {
   },
 };
 
-export const inputMetaData = {
+export const inputMetaData: Record<string, Record<string, any>> = {
   name: {
     type: "text",
     label: "Name",

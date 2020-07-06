@@ -17,6 +17,8 @@
     "@chakra-ui/core": "^0.8.0",
     "@emotion/core": "^10.0.28",
     "@emotion/styled": "^10.0.27",
+    "@hookstate/core": "^2.0.1",
+    "@hookstate/persistence": "^2.0.0",
     "@reach/router": "^1.2.1",
     "@react-pdf/renderer": "^1.6.8",
     "@types/react-albus": "^2.0.5",

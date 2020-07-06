@@ -1,12 +1,21 @@
-import { Flex, Heading, Box } from "@chakra-ui/core";
-import _ from "lodash";
-import React, { useContext } from "react";
-import DisputeGeneratorContext from "./disputeGeneratorContext";
+import { Box, Flex, Heading } from "@chakra-ui/core";
+import { self, State, useState } from "@hookstate/core";
+// import DisputeGeneratorContext from "./disputeGeneratorContext";
 import { IDispute } from "@typeDefs/types";
+import _ from "lodash";
+import React from "react";
+import { DisputeGlobalState } from "./disputeGeneratorState";
 
 export const CurrentData = () => {
-  const { disputes, currentDisputeIndex } = useContext(DisputeGeneratorContext);
-  const dispute = disputes[currentDisputeIndex];
+  // const { disputes, currentDisputeIndex } = useContext(DisputeGeneratorContext);
+  // const dispute = disputes[currentDisputeIndex];
+
+  // const state = useState<IDisputeGeneratorState>(DisputeGlobalState);
+  // const disputeState: State<IDispute> = useState<IDispute>(state.disputes[0]);
+  const disputeState: State<IDispute> = useState<IDispute>(
+    DisputeGlobalState.disputes[0]
+  );
+  const dispute: IDispute = disputeState[self].value;
   return _.isEmpty(dispute) ? (
     <Flex
       flexDirection={"column"}

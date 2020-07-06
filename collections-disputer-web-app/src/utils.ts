@@ -1,6 +1,9 @@
+import React from "react";
 import _ from "lodash";
 import { IDisputeGeneratorState } from "./types/types";
-import { useState, useDebugValue } from "react";
+import { useDebugValue } from "react";
+
+import { useState, State } from "@hookstate/core";
 
 const localStorageStateKey = "state";
 
@@ -27,7 +30,11 @@ export function storeState(state: IDisputeGeneratorState): void {
 }
 
 export function useNamedState<T>(initialValue: T, name: string) {
-  const [value, setValue] = useState<T>(initialValue);
+  const [value, setValue] = React.useState<T>(initialValue);
   useDebugValue(`${name}: ${value}`);
   return [value, setValue];
+}
+
+export function useGlobal<T>(state: State<T>) {
+  return useState<T>(state);
 }

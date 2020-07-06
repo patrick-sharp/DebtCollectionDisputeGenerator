@@ -7,18 +7,18 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  useDisclosure,
 } from "@chakra-ui/core";
-import { IDispute } from "@typeDefs/types";
 import _ from "lodash";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { IDisputeGeneratorState } from "../../types/types";
 import { restoreState, storeState } from "../../utils";
 import Wizard from "./components/Wizard";
-import "./DisputeGenerator.scss";
-import DisputeGeneratorContext from "./disputeGeneratorContext";
 import { CurrentData } from "./CurrentData";
+import "./DisputeGenerator.scss";
+import { DisputeGlobalState } from "./disputeGeneratorState";
 
-export default class DisputeGenerator extends React.Component {
+export class OLD_DisputeGenerator extends React.Component {
   state: IDisputeGeneratorState = restoreState() ?? {
     disputes: [],
     currentDisputeIndex: 0,
@@ -29,16 +29,16 @@ export default class DisputeGenerator extends React.Component {
   }
 
   render() {
-    const setState = (newState: IDisputeGeneratorState) => {
+    /* const setState = (newState: IDisputeGeneratorState) => {
       // this.setState.bind(this);
 
       const _state = _.cloneDeep(this.state);
 
       _.merge(_state, newState);
       this.setState(_state);
-    };
+    }; */
 
-    const setCurrentState = (newDispute: Partial<IDispute>) => {
+    /* const setCurrentState = (newDispute: Partial<IDispute>) => {
       const disputes = _.cloneDeep(this.state.disputes);
 
       const _dispute = {
@@ -51,32 +51,51 @@ export default class DisputeGenerator extends React.Component {
       const _state = { ...this.state, disputes };
 
       setState(_state);
-    };
+    }; */
 
-    const contextValue = {
+    /* const contextValue = {
       ...this.state,
       setState: setState.bind(this),
       setCurrentState: setCurrentState.bind(this),
-    };
+    }; */
     return (
       <div id="DisputeGenerator">
-        <DisputeGeneratorContext.Provider value={contextValue}>
-          <WelcomeModal />
+        {/* <DisputeGeneratorContext.Provider value={contextValue}> */}
+        <WelcomeModal />
 
-          <Wizard />
-          <CurrentData />
-        </DisputeGeneratorContext.Provider>
+        <Wizard />
+        <CurrentData />
+        {/*</DisputeGeneratorContext.Provider> */}
       </div>
     );
   }
 }
 
+export default function DisputeGenerator() {
+  return (
+    <div id="DisputeGenerator">
+      {/* <DisputeGeneratorContext.Provider value={contextValue}> */}
+      <WelcomeModal />
+
+      <Wizard />
+      <CurrentData />
+      {/* </DisputeGeneratorContext.Provider> */}
+    </div>
+  );
+}
+
 const WelcomeModal = () => {
-  const { disputes } = useContext(DisputeGeneratorContext);
-  const [showWelcome, setShowWelcome] = useState(_.isEmpty(disputes));
+  // TODO: better assumption criteria for those who've started the app already
+  const [firstName] = useState(
+    DisputeGlobalState.disputes[0].claimee.name.first
+  );
+
+  const { isOpen, onClose } = useDisclosure(
+    _.isNil(firstName) || _.isEmpty(firstName)
+  );
 
   return (
-    <Modal isOpen={showWelcome} onClose={() => setShowWelcome(false)}>
+    <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Welcome Back</ModalHeader>
@@ -85,7 +104,7 @@ const WelcomeModal = () => {
           <p>Thanks for getting started! Let's pick up where we started.</p>
         </ModalBody>
         <ModalFooter>
-          <Button onClick={() => setShowWelcome(false)}>OK!</Button>
+          <Button onClick={onClose}>OK!</Button>
         </ModalFooter>
       </ModalContent>
     </Modal>

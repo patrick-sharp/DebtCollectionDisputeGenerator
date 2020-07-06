@@ -37,14 +37,17 @@ const AutoSave = ({ debounceMs = 1000 }) => {
     [formik.submitForm, debounceMs]
   );
 
-  useEffect(() => debouncedSubmit, [debouncedSubmit, formik.values]);
+  useEffect(() => (debouncedSubmit as unknown) as () => void, [
+    debouncedSubmit,
+    formik.values,
+  ]);
 
   // return <></>;
   const title = !!formik.isSubmitting
     ? "Saving..."
     : // : isSaved
       // ? "Your changes saved."
-      null;
+      undefined;
   return <ToastBox>{title}</ToastBox>;
 };
 

@@ -1,13 +1,13 @@
 import React from "react";
 import { IDisputeGeneratorState, IDispute } from "@typeDefs/types";
 
-export interface DisputeGeneratorContextType extends IDisputeGeneratorState {
+export interface _DisputeGeneratorContextType extends IDisputeGeneratorState {
   setState: (state: Partial<IDisputeGeneratorState>) => void;
   setCurrentState: (dispute: Partial<IDispute>) => void;
 }
 
-const DisputeGeneratorContext = React.createContext<
-  DisputeGeneratorContextType
+export const _DisputeGeneratorContext = React.createContext<
+  _DisputeGeneratorContextType
 >({
   disputes: [],
   currentDisputeIndex: 0,
@@ -15,4 +15,3 @@ const DisputeGeneratorContext = React.createContext<
   setCurrentState: () => {},
 });
 
-export default DisputeGeneratorContext;
