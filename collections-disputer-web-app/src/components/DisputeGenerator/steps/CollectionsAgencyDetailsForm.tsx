@@ -1,6 +1,6 @@
 import React from "react";
 import StepForm from "../components/StepForm";
-import { WizardContext } from "../WizardContext"
+import { WizardContext } from "../WizardContext";
 import { Button, IconButton } from "@chakra-ui/core";
 
 export default function CollectionsAgencyDetailsForm() {
@@ -11,8 +11,14 @@ export default function CollectionsAgencyDetailsForm() {
   return (
     <div id="CollectionsAgencyDetailsForm">
       <StepForm>TODO</StepForm>{" "}
-      <IconButton aria-label={"Previous Step"} icon={"arrow-back"} onClick={previous} />
-      <Button leftIcon={"arrow-forward"} onClick={next}>Next</Button>
+      <IconButton
+        aria-label={"Previous Step"}
+        icon={"arrow-back"}
+        onClick={previous}
+      />
+      <Button leftIcon={"arrow-forward"} onClick={next}>
+        Next
+      </Button>
     </div>
   );
 }

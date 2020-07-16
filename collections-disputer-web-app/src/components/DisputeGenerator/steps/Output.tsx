@@ -1,8 +1,7 @@
 import { IconButton } from "@chakra-ui/core";
 import React from "react";
 import Step from "../components/Step";
-import { WizardContext } from "../WizardContext"
-
+import { WizardContext } from "../WizardContext";
 
 export default function Output() {
   const {

@@ -3,12 +3,13 @@ import {
   FormControl,
   FormLabel,
   Skeleton,
+  Spinner,
   Stack,
   Switch,
 } from "@chakra-ui/core";
 import AutoSave from "@components/FormikAutosave";
 import { self, useState } from "@hookstate/core";
-import { IClaimee, IDispute, ISpouse } from "@typeDefs/types";
+import { IClaimee, ISpouse } from "@typeDefs/types";
 import { Form, Formik } from "formik";
 import _ from "lodash";
 import moment from "moment";
@@ -27,13 +28,25 @@ export default function BiographyForm() {
 
   const { disputes, loading, currentDisputeIndex } = useState(
     DisputeGlobalState
-  )[self].get();
+  );
 
-  if (!disputes[self].get() && !loading) {
+  if (!disputes[self].value && !loading) {
     disputes[self].set([]);
   }
 
-  const dispute = disputes[currentDisputeIndex.value] ?? ({} as IDispute);
+  const disputeState =
+    // disputes[currentDisputeIndex.value][self].value ?? ({} as IDispute);
+    disputes[currentDisputeIndex.value][self].ornull;
+
+  if (!disputeState) {
+    return (
+      <>
+        <Spinner />
+      </>
+    );
+  }
+
+  const dispute = disputeState[self].value;
 
   return (
     <Step id="BiographyForm">
@@ -105,7 +118,7 @@ function ClaimeeBiography() {
       email: "",
     },
     personalInfo: {
-      birthdate: moment().toDate(),
+      birthdate: moment().toDate().toISOString(),
       ssn: 0,
     },
   };
@@ -139,10 +152,25 @@ function ClaimeeBiography() {
 function SpouseBiography() {
   const current = useState(DisputeGlobalState.currentDisputeIndex).value;
 
-  const spouse = useState(DisputeGlobalState.disputes[current].claimee.spouse);
+  // const spouseState = useState(
+  // DisputeGlobalState.disputes[current].claimee.spouse
+  // )[self].ornull;
+  const disputesState = useState(DisputeGlobalState.disputes)[self].ornull;
 
-  function handleUpdate(values: ISpouse) {
-    spouse[self].merge(values);
+  const spouseState = disputesState[current].claimee.spouse;
+
+  if (!spouseState[self]) {
+    return (
+      <>
+        <Spinner />{" "}
+      </>
+    );
+  }
+
+  const spouse = spouseState[self].value;
+
+  function handleUpdate(values: NonNullable<ISpouse>) {
+    values ? spouseState[self].merge(values) : null;
   }
   const initialValues: ISpouse = {
     name: {
@@ -153,12 +181,18 @@ function SpouseBiography() {
       juniorOrSenior: "",
     },
     personalInfo: {
-      birthdate: moment().toDate(),
+      birthdate: moment().toDate().toISOString(),
       ssn: 0,
     },
-  };
+  } as NonNullable<ISpouse>;
 
-  _.merge(initialValues, _.merge(initialValues, spouse[self].value));
+  if (spouse) {
+    _.merge(initialValues ? initialValues.name : {}, spouse.name);
+    _.merge(
+      initialValues ? initialValues.personalInfo : {},
+      spouse?.personalInfo ?? {}
+    );
+  }
 
   return (
     <Formik initialValues={initialValues} onSubmit={handleUpdate}>

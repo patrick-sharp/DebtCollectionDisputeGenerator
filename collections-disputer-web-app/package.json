@@ -9,7 +9,7 @@
     "export": "react-static export",
     "serve": "serve dist -p 3000 -s",
     "test": "jest",
-    "test:ci": "jest --watchAll=false",
+    "test:ci": "jest --watchAll=false --passWithNoTests",
     "lint": "npx eslint --fix 'src/**/*.ts*'",
     "format": "npx prettier --write **/*.ts*"
   },
@@ -55,6 +55,7 @@
     "@types/react-hot-loader": "^4.1.0",
     "@types/webpack-env": "^1.14.0",
     "husky": "^4.2.3",
+    "jest": "^26.1.0",
     "react-hot-loader": "^4.12.11",
     "serve": "^11.1.0",
     "typescript": "^3.5.3"

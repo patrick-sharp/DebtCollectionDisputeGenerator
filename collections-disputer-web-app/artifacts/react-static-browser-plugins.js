@@ -1,34 +1,39 @@
 // Imports
-import plugin0 from 'C:/Users/rayat/Documents/Workspace/COLLECTIONS/DebtCollectionDisputeGenerator/collections-disputer-web-app/node_modules/react-static-plugin-reach-router/browser.api.js'
+import plugin0 from '__react_static_root__/node_modules/react-static-plugin-reach-router/browser.api.js'
 
 // Plugins
 const plugins = [{
-        location: "C:/Users/rayat/Documents/Workspace/COLLECTIONS/DebtCollectionDisputeGenerator/collections-disputer-web-app/node_modules/react-static-plugin-typescript",
+        location: "__react_static_root__/node_modules/react-static-plugin-typescript",
         plugins: [],
         hooks: {}
       },
 {
-        location: "C:/Users/rayat/Documents/Workspace/COLLECTIONS/DebtCollectionDisputeGenerator/collections-disputer-web-app/node_modules/react-static-plugin-sass",
+        location: "__react_static_root__/node_modules/react-static-plugin-sass",
         plugins: [],
         hooks: {}
       },
 {
-        location: "C:/Users/rayat/Documents/Workspace/COLLECTIONS/DebtCollectionDisputeGenerator/collections-disputer-web-app/node_modules/react-static-plugin-source-filesystem",
+        location: "__react_static_root__/node_modules/react-static-plugin-css-modules",
         plugins: [],
         hooks: {}
       },
 {
-        location: "C:/Users/rayat/Documents/Workspace/COLLECTIONS/DebtCollectionDisputeGenerator/collections-disputer-web-app/node_modules/react-static-plugin-reach-router",
+        location: "__react_static_root__/node_modules/react-static-plugin-source-filesystem",
+        plugins: [],
+        hooks: {}
+      },
+{
+        location: "__react_static_root__/node_modules/react-static-plugin-reach-router",
         plugins: [],
         hooks: plugin0({})
       },
 {
-        location: "C:/Users/rayat/Documents/Workspace/COLLECTIONS/DebtCollectionDisputeGenerator/collections-disputer-web-app/node_modules/react-static-plugin-sitemap/dist",
+        location: "__react_static_root__/node_modules/react-static-plugin-sitemap/dist",
         plugins: [],
         hooks: {}
       },
 {
-        location: "C:/Users/rayat/Documents/Workspace/COLLECTIONS/DebtCollectionDisputeGenerator/collections-disputer-web-app",
+        location: "__react_static_root__/",
         plugins: [],
         hooks: {}
       }]

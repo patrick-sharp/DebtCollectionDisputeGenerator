@@ -11,6 +11,7 @@ import {
   ContactInfoSchema,
   DebtCollectorSchema,
   AddressSchema,
+  SpouseSchema,
 } from "./schemas";
 
 export type IDateLike = Date | string | moment.Moment;
@@ -49,7 +50,8 @@ export type IDisputeReason = ReturnType<
 
 export type IClaimee = ReturnType<typeof ClaimeeSchema.validateSync>;
 
-export type ISpouse = Omit<IClaimee, "contactInfo" | "address" | "spouse">;
+export type ISpouse = ReturnType<typeof SpouseSchema.validateSync>;
+// export type ISpouse = Omit<IClaimee, "contactInfo" | "address" | "spouse">;
 
 export type IClaimeeName = ReturnType<typeof ClaimeeNameSchema.validateSync>;
 

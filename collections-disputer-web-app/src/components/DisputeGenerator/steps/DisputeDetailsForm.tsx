@@ -1,7 +1,7 @@
 import { Button, IconButton } from "@chakra-ui/core";
 import React from "react";
 import StepForm from "../components/StepForm";
-import { WizardContext } from "../WizardContext"
+import { WizardContext } from "../WizardContext";
 
 export default function DisputeDetailsForm() {
   const {

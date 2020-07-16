@@ -14,4 +14,3 @@ export const _DisputeGeneratorContext = React.createContext<
   setState: () => {},
   setCurrentState: () => {},
 });
-

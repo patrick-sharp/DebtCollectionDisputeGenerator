@@ -9,8 +9,9 @@ import {
   ModalOverlay,
   useDisclosure,
 } from "@chakra-ui/core";
+import { self, useState } from "@hookstate/core";
 import _ from "lodash";
-import React, { useState } from "react";
+import React from "react";
 import { IDisputeGeneratorState } from "../../types/types";
 import { restoreState, storeState } from "../../utils";
 import Wizard from "./components/Wizard";
@@ -86,13 +87,10 @@ export default function DisputeGenerator() {
 
 const WelcomeModal = () => {
   // TODO: better assumption criteria for those who've started the app already
-  const [firstName] = useState(
-    DisputeGlobalState.disputes[0].claimee.name.first
-  );
+  const name = useState(DisputeGlobalState.disputes[0].claimee.name)[self]
+    .value;
 
-  const { isOpen, onClose } = useDisclosure(
-    _.isNil(firstName) || _.isEmpty(firstName)
-  );
+  const { isOpen, onClose } = useDisclosure(_.isNil(name?.first));
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>

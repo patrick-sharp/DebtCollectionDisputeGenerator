@@ -1,5 +1,5 @@
 import { Box, Flex, Heading } from "@chakra-ui/core";
-import { self, State, useState } from "@hookstate/core";
+import { self, useState } from "@hookstate/core";
 // import DisputeGeneratorContext from "./disputeGeneratorContext";
 import { IDispute } from "@typeDefs/types";
 import _ from "lodash";
@@ -12,11 +12,19 @@ export const CurrentData = () => {
 
   // const state = useState<IDisputeGeneratorState>(DisputeGlobalState);
   // const disputeState: State<IDispute> = useState<IDispute>(state.disputes[0]);
-  const disputeState: State<IDispute> = useState<IDispute>(
-    DisputeGlobalState.disputes[0]
-  );
+  const disputeState = useState<IDispute>(DisputeGlobalState.disputes[0])[self]
+    .ornull;
+
+  if (!disputeState) {
+    return <></>;
+  }
   const dispute: IDispute = disputeState[self].value;
-  return _.isEmpty(dispute) ? (
+
+  if (!dispute) {
+    return <></>;
+  }
+
+  return _.isNil(dispute.claimee.name) ? (
     <Flex
       flexDirection={"column"}
       d={["none", "flex"]}

@@ -1,10 +1,12 @@
-import _ from "lodash";
 import * as yup from "yup";
 
-const omit = (obj: any, ...keys: string[]) =>
-  Object.fromEntries(Object.entries(obj).filter(([k]) => !keys.includes(k)));
+// const omit = (obj: any, ...keys: string[]) =>
+//   Object.entries(obj)
+//     .filter(([k]) => !keys.includes(k))
+//     .reduce((acc, [key, val]) => ({ ...acc, [key]: val }), {});
 
-export const DateLikeSchema = yup.date();
+// export const DateLikeSchema = yup.date();
+export const DateLikeSchema = yup.string();
 
 export const AddressSchema = yup.object({
   name: yup.string().defined(),
@@ -62,14 +64,16 @@ export const DisputeItemSchema = yup.object({
 
 const claimeeSchemaObject = {
   address: AddressSchema.defined(),
-  name: ClaimeeNameSchema /* .notRequired() */.defined(),
+  name: ClaimeeNameSchema.defined(),
   contactInfo: ContactInfoSchema.defined(),
   personalInfo: PersonalInfoSchema.defined(),
 };
 
 export const SpouseSchema = yup.object({
-  ...omit(claimeeSchemaObject, "contactInfo", "address", "spouse"),
+  name: ClaimeeNameSchema.defined(),
+  personalInfo: PersonalInfoSchema.defined(),
 });
+
 export const ClaimeeSchema = yup.object({
   ...claimeeSchemaObject,
   spouse: SpouseSchema.defined() /* .notRequired() */,

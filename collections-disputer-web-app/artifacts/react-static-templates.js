@@ -1,11 +1,11 @@
 
 
-  
+
 // Template Map
 export default {
-  'C:/Users/rayat/Documents/Workspace/COLLECTIONS/DebtCollectionDisputeGenerator/collections-disputer-web-app/src/pages/404.tsx': require('C:/Users/rayat/Documents/Workspace/COLLECTIONS/DebtCollectionDisputeGenerator/collections-disputer-web-app/src/pages/404.tsx').default,
-'C:/Users/rayat/Documents/Workspace/COLLECTIONS/DebtCollectionDisputeGenerator/collections-disputer-web-app/src/pages/index.tsx': require('C:/Users/rayat/Documents/Workspace/COLLECTIONS/DebtCollectionDisputeGenerator/collections-disputer-web-app/src/pages/index.tsx').default
+  '__react_static_root__/src/pages/404.tsx': require('__react_static_root__/src/pages/404.tsx').default,
+'__react_static_root__/src/pages/index.tsx': require('__react_static_root__/src/pages/index.tsx').default
 }
 
-export const notFoundTemplate = 'C:/Users/rayat/Documents/Workspace/COLLECTIONS/DebtCollectionDisputeGenerator/collections-disputer-web-app/src/pages/404.tsx'
+export const notFoundTemplate = '__react_static_root__/src/pages/404.tsx'
 

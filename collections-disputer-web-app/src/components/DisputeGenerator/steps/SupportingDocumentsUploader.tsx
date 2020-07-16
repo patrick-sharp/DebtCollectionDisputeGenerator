@@ -1,7 +1,7 @@
 import { Button, IconButton } from "@chakra-ui/core";
 import React from "react";
 import Step from "../components/Step";
-import { WizardContext } from "../WizardContext"
+import { WizardContext } from "../WizardContext";
 
 export default function SupportingDocumentsUploader() {
   const {
@@ -11,8 +11,14 @@ export default function SupportingDocumentsUploader() {
   return (
     <div id="SupportingDocumentsUploader">
       <Step>TODO</Step>{" "}
-      <IconButton aria-label={"Previous Step"} icon={"arrow-back"} onClick={previous} />
-      <Button leftIcon={"arrow-forward"} onClick={next}>Next</Button>
+      <IconButton
+        aria-label={"Previous Step"}
+        icon={"arrow-back"}
+        onClick={previous}
+      />
+      <Button leftIcon={"arrow-forward"} onClick={next}>
+        Next
+      </Button>
     </div>
   );
 }

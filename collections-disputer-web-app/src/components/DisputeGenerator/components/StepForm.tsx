@@ -234,6 +234,7 @@ export const inputMetaData: Record<string, Record<string, any>> = {
   birthdate: {
     type: "date",
     label: "Birthdate",
+    // TODO: transform data forms into ISOStrings
   },
   ssn: {
     type: "number",
